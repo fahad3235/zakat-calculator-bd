@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zakat Calculator BD — যাকাত ক্যালকুলেটর · Bilingual Zakat Calculator</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">🕌</span>
+    <div>
+      <h1 data-i18n="appTitle">Zakat Calculator BD</h1>
+      <p class="tagline" data-i18n="tagline">Your Zakat, calculated honestly</p>
+    </div>
+  </div>
+  <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">বাং</button>
+</header>
+
+<div class="rate-warning" role="note">
+  <span aria-hidden="true">⚠️</span>
+  <span data-i18n="rateDisclaimer">Gold &amp; silver rates below are default estimates only — update them with today's market price. They are not live prices.</span>
+</div>
+
+<main class="container">
+
+  <section class="card" aria-labelledby="ratesTitle">
+    <h2 id="ratesTitle" data-i18n="ratesTitle">Gold &amp; Silver Rates (per bhori, BDT)</h2>
+    <div class="form-grid two">
+      <div class="field">
+        <label for="goldRate" data-i18n="goldRate">Gold rate per bhori (৳)</label>
+        <input id="goldRate" type="number" min="0" step="any" inputmode="decimal">
+        <p class="hint" data-i18n="goldRateHint">Default estimate — update with today's market price</p>
+        <p class="error" id="err-goldRate" hidden></p>
+      </div>
+      <div class="field">
+        <label for="silverRate" data-i18n="silverRate">Silver rate per bhori (৳)</label>
+        <input id="silverRate" type="number" min="0" step="any" inputmode="decimal">
+        <p class="hint" data-i18n="silverRateHint">Default estimate — update with today's market price</p>
+        <p class="error" id="err-silverRate" hidden></p>
+      </div>
+    </div>
+    <div class="field">
+      <label data-i18n="nisabBasisLabel">Nisab basis</label>
+      <div class="radio-row" role="radiogroup" aria-label="Nisab basis">
+        <label class="radio"><input type="radio" name="nisabBasis" value="silver" checked>
+          <span data-i18n="nisabSilver">Silver — 595 g (lower, safer default)</span></label>
+        <label class="radio"><input type="radio" name="nisabBasis" value="gold">
+          <span data-i18n="nisabGold">Gold — 85 g</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="assetsTitle">
+    <h2 id="assetsTitle" data-i18n="assetsTitle">Your Assets (BDT)</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label for="cash" data-i18n="cash">Cash &amp; bank savings (৳)</label>
+        <input id="cash" type="number" min="0" step="any" inputmode="decimal" placeholder="0">
+        <p class="error" id="err-cash" hidden></p>
+      </div>
+      <div class="field dual">
+        <label data-i18n="gold">Gold</label>
+        <div class="dual-inputs">
+          <input id="goldBhori" type="number" min="0" step="any" inputmode="decimal" placeholder="0"
+                 aria-label="Gold bhori">
+          <span class="unit" data-i18n="bhori">bhori</span>
+          <input id="goldGram" type="number" min="0" step="any" inputmode="decimal" placeholder="0"
+                 aria-label="Gold gram">
+          <span class="unit" data-i18n="gram">gram</span>
+        </div>
+        <p class="hint">1 <span data-i18n="bhori2">bhori</span> = 11.664 <span data-i18n="gram2">gram</span></p>
+        <p class="metal-value"><span data-i18n="value">Value</span>: <strong id="goldValue">৳0</strong></p>
+        <p class="error" id="err-gold" hidden></p>
+      </div>
+      <div class="field dual">
+        <label data-i18n="silver">Silver</label>
+        <div class="dual-inputs">
+          <input id="silverBhori" type="number" min="0" step="any" inputmode="decimal" placeholder="0"
+                 aria-label="Silver bhori">
+          <span class="unit" data-i18n="bhori3">bhori</span>
+          <input id="silverGram" type="number" min="0" step="any" inputmode="decimal" placeholder="0"
+                 aria-label="Silver gram">
+          <span class="unit" data-i18n="gram3">gram</span>
+        </div>
+        <p class="metal-value"><span data-i18n="value2">Value</span>: <strong id="silverValue">৳0</strong></p>
+        <p class="error" id="err-silver" hidden></p>
+      </div>
+      <div class="field">
+        <label for="stock" data-i18n="stock">Business inventory / stock (৳)</label>
+        <input id="stock" type="number" min="0" step="any" inputmode="decimal" placeholder="0">
+        <p class="error" id="err-stock" hidden></p>
+      </div>
+      <div class="field">
+        <label for="investments" data-i18n="investments">Investments &amp; mutual funds (৳)</label>
+        <input id="investments" type="number" min="0" step="any" inputmode="decimal" placeholder="0">
+        <p class="error" id="err-investments" hidden></p>
+      </div>
+      <div class="field">
+        <label for="receivables" data-i18n="receivables">Money owed to you (৳)</label>
+        <input id="receivables" type="number" min="0" step="any" inputmode="decimal" placeholder="0">
+        <p class="error" id="err-receivables" hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="liabTitle">
+    <h2 id="liabTitle" data-i18n="liabTitle">Deductions</h2>
+    <div class="field">
+      <label for="liabilities" data-i18n="liabilities">Debts payable this lunar year (৳)</label>
+      <input id="liabilities" type="number" min="0" step="any" inputmode="decimal" placeholder="0">
+      <p class="error" id="err-liabilities" hidden></p>
+    </div>
+    <div class="actions">
+      <button id="resetBtn" class="btn btn-secondary" type="button" data-i18n="reset">Reset all</button>
+      <button id="printBtn" class="btn btn-secondary" type="button" data-i18n="print">Print result</button>
+    </div>
+  </section>
+
+  <section class="card result-card" id="resultCard" aria-labelledby="resultTitle" aria-live="polite">
+    <h2 id="resultTitle" data-i18n="resultTitle">Your Zakat</h2>
+    <div id="resultEmpty" class="result-empty">
+      <p class="empty-icon" aria-hidden="true">🧮</p>
+      <p data-i18n="emptyMsg">Enter your assets above to see your Zakat calculation.</p>
+    </div>
+    <div id="resultContent" hidden>
+      <div id="resultState" class="result-state"></div>
+      <p class="nisab-line"><span data-i18n="nisabLabel">Nisab threshold</span> (<span id="nisabBasisText"></span>):
+        <strong id="nisabValue">৳0</strong></p>
+      <ul class="breakdown" id="breakdown"></ul>
+      <div class="totals">
+        <div class="total-row"><span data-i18n="totalAssets">Total assets</span><span id="totalAssets">৳0</span></div>
+        <div class="total-row"><span data-i18n="totalLiabilities">Liabilities</span><span id="totalLiabilities">৳0</span></div>
+        <div class="total-row"><span data-i18n="zakatable">Zakatable wealth</span><span id="zakatable">৳0</span></div>
+        <div class="total-row grand"><span data-i18n="zakatDue">Zakat due (2.5%)</span><span id="zakatDue">৳0</span></div>
+      </div>
+      <p class="scholar-note" data-i18n="scholarNote">This is a calculation aid using estimated rates. For personal rulings (nisab choice, debt treatment, mixed assets), please consult a qualified scholar.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p data-i18n="footer">Fully offline · No data leaves your device · Rates are estimates, not live prices</p>
+  </footer>
+</main>
+
+<script src="js/zakat.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
